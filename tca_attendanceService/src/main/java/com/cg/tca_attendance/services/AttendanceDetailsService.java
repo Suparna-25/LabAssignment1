@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cg.tca_attendance.entities.AttendanceDetails;
+import com.cg.tca_attendance.entities.Employees;
 
 public class AttendanceDetailsService implements IAttendanceDetailsService{
 	private AttendanceDetailsRepository rep;
@@ -23,27 +24,21 @@ public class AttendanceDetailsService implements IAttendanceDetailsService{
 		
 	}
 
-	@Override
-	public List<AttendanceDetails> viewAttendanceDetailsByEmployeeId(long employee_Id) {
-		List<AttendanceDetails> attendance=rep.findAttendanceDetailsByEmployeeId(employee_Id);
-		return attendance;
-	}
 
 	@Override
-	public String setAttendanceType(String type, int choice) {
-		AttendanceDetails attendance=new AttendanceDetails();
+	public void setAttendanceType(int choice,AttendanceDetails attendance) {
 		switch(choice) {
-		case 1: attendance.setType_Id("Forgot Card");
+		case 1: attendance.setTypeId("Forgot Card");
 		break;
-		case 2: attendance.setType_Id("Client Location");
+		case 2: attendance.setTypeId("Client Location");
 		break;
-		case 3: attendance.setType_Id("Working From Home");
+		case 3: attendance.setTypeId("Working From Home");
 		break;
-		case 4: attendance.setType_Id("Business Travel");
+		case 4: attendance.setTypeId("Business Travel");
 		break;
-		default:attendance.setType_Id("Missed Both Swipes");
+		default:attendance.setTypeId("Missed Both Swipes");
+		
 		}
-		return null;
 	}
 	
 

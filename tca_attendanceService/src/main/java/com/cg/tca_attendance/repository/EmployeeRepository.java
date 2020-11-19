@@ -1,13 +1,13 @@
 package com.cg.tca_attendance.repository;
 
-import com.cg.tca_attendance.entities.AttendanceDetails;
-import com.cg.tca_attendance.entities.Employees;
-
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+
+import com.cg.tca_attendance.entities.Employees;
 
 
 public class EmployeeRepository implements IEmployeeRepository {
@@ -22,43 +22,40 @@ public class EmployeeRepository implements IEmployeeRepository {
 	}
 
 	@Override
-	public Employees findEmployeeById(long emp_Id) {
-		Employees entity = entityManager.find(Employees.class,emp_Id);
-		Employees employee = new Employees();
-		employee.setEmp_Id(entity.getEmp_Id());
-		employee.setEmp_Name(entity.getEmp_Name());
-		employee.setPhone_Number(entity.getPhone_Number());
-		employee.setEmp_Email(entity.getEmp_Email());
-		employee.setAttendance(entity.getAttendance());
-		employee.setSupervisior_Id(entity.getSupervisior_Id());
-
-		return employee;
+	public Employees findEmployeeById(long empId) {
+		entityManager.getTransaction().begin();
+		Employees entity = entityManager.find(Employees.class,empId);
+		entityManager.getTransaction().commit();
+		
+      
+		return entity;
 	}
 
 	@Override
 	public void addEmployee(Employees employee) {
-		beginTransaction();
-		Employees entity = new Employees();
-		employee.setEmp_Id(entity.getEmp_Id());
-		employee.setEmp_Name(entity.getEmp_Name());
-		employee.setPhone_Number(entity.getPhone_Number());
-		employee.setEmp_Email(entity.getEmp_Email());
-		employee.setAttendance(entity.getAttendance());
-		employee.setSupervisior_Id(entity.getEmp_Id());
+		entityManager.getTransaction().begin();
+		
+	
 				
-		entityManager.persist(entity);
-		commitTransaction();
+		entityManager.persist(employee);
+		entityManager.getTransaction().commit();
+		//entityManager.close();
 		
 	}
 	@Override
-	public List<Employees> findEmployeesUnderSupervisior(long supervisiorId) {
+	public List<Employees> findEmployeesUnderSupervisior(long Id) {
 		
-		TypedQuery<Employees> query  = entityManager.createQuery(
-	          "SELECT * FROM Employees WHERE superisior_Id=supervisorId", Employees.class);
-		List<Employees> resultList = query.getResultList();
-		return resultList;
+		
+
+	    
+		Query q = entityManager.createNativeQuery("SELECT a.* FROM Employees a where a.supervisiorId = ? ", Employees.class);
+		q.setParameter(1, Long.valueOf(Id));
+		List<Employees> employees = q.getResultList();
+
+		return employees;
 	}
-	
+
+
 	
 	@Override
 	public void beginTransaction() {
@@ -73,6 +70,7 @@ public class EmployeeRepository implements IEmployeeRepository {
 		
 	}
 
+	
 	
 	
 

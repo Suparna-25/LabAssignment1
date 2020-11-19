@@ -7,9 +7,10 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.TypedQuery;
+
 
 import com.cg.tca_attendance.entities.AttendanceDetails;
+import com.cg.tca_attendance.entities.Employees;
 
 
 public class AttendanceDetailsRepository implements IAttendanceDetailsRepository{
@@ -21,61 +22,42 @@ public class AttendanceDetailsRepository implements IAttendanceDetailsRepository
 		
 	}
 	@Override
-	public AttendanceDetails findAttendanceDetailsById(int attendance_Id) {
-		AttendanceDetails entity = entityManager.find(AttendanceDetails.class,attendance_Id);
-		AttendanceDetails attendance = new AttendanceDetails();
-		attendance.setAttendanceId(entity.getAttendanceId());
-		attendance.setIn_Time(entity.getIn_Time());
-		attendance.setOut_Time(entity.getOut_Time());
-		attendance.setDate(entity.getDate());
-		attendance.setReason(entity.getReason());
-		attendance.setType_Id(entity.getType_Id());
-		attendance.setStatus(entity.getStatus());
-		return attendance;
+	public AttendanceDetails findAttendanceDetailsById(int attendanceId) {
+		AttendanceDetails entity = entityManager.find(AttendanceDetails.class,attendanceId);
+
+		return entity;
 
 	}
-	@Override
-	public List<AttendanceDetails> findAttendanceDetailsByEmployeeId(long employee_Id) {
-		AttendanceDetails entity = entityManager.find(AttendanceDetails.class,employee_Id);
-		List<AttendanceDetails> attendance = new ArrayList<>();
-		for(AttendanceDetails ad:attendance) {
-		ad.setAttendanceId(entity.getAttendanceId());
-		ad.setIn_Time(entity.getIn_Time());
-		ad.setOut_Time(entity.getOut_Time());
-		ad.setDate(entity.getDate());
-		ad.setReason(entity.getReason());
-		ad.setType_Id(entity.getType_Id());
-		ad.setStatus(entity.getStatus());
-		attendance.add(ad);
-		}
-		return attendance;
-
-	}
+//	@Override
+//	public List<AttendanceDetails> findAttendanceDetailsByEmployeeId(long employeeId) {
+//		List<AttendanceDetails> attendance = new ArrayList<>();
+//		
+//		 lon entity= entityManager.find(AttendanceDetails.class,a.getEmployee().getEmpId());
+//		   a.add(entity);
+//		}
+//		      
+//		return attendance;
+//
+//	}
 
 
 
 	@Override
 	public void addAttendanceDetails(AttendanceDetails attendance) {
-		beginTransaction();
-		AttendanceDetails entity = new AttendanceDetails();
-		attendance.setAttendanceId(entity.getAttendanceId());
-		attendance.setIn_Time(entity.getIn_Time());
-		attendance.setOut_Time(entity.getOut_Time());
-		attendance.setDate(entity.getDate());
-		attendance.setReason(entity.getReason());
-		attendance.setType_Id(entity.getType_Id());
-		attendance.setStatus(entity.getStatus());
-		entityManager.persist(entity);
-		commitTransaction();
+		entityManager.getTransaction().begin();
+		entityManager.persist(attendance);
+		entityManager.getTransaction().commit();
+		//entityManager.close();
 		
 	}
 	@Override
 	public void updateAttendanceStatus(AttendanceDetails attendance,String status) {
 		AttendanceDetails entity = entityManager.find(AttendanceDetails.class, attendance.getAttendanceId());
 		if(entity.getStatus().equalsIgnoreCase("Pending")) {
-			beginTransaction();
+			entityManager.getTransaction().begin();
 			entity.setStatus(status);
-			commitTransaction();
+			entityManager.getTransaction().commit();
+		//	entityManager.close();
 		}
 	}
 	

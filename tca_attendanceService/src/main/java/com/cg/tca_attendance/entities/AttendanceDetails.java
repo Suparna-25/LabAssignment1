@@ -8,17 +8,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 @Entity
 public class AttendanceDetails {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int attendanceId;
-	private String in_Time;
-	private String out_Time;
+	private String inTime;
+	private String outTime;
 	private String date;
 	private String reason;
-	private String type_Id;
+	private String typeId;
 	private String status;
 	@ManyToOne
-	@JoinColumn(name="emp_Id")
+	@JoinColumn(name="empId")
 	private Employees employee;
 	public int getAttendanceId() {
 		return attendanceId;
@@ -26,17 +27,17 @@ public class AttendanceDetails {
 	public void setAttendanceId(int attendanceId) {
 		this.attendanceId = attendanceId;
 	}
-	public String getIn_Time() {
-		return in_Time;
+	public String getInTime() {
+		return inTime;
 	}
-	public void setIn_Time(String in_Time) {
-		this.in_Time = in_Time;
+	public void setInTime(String inTime) {
+		this.inTime = inTime;
 	}
-	public String getOut_Time() {
-		return out_Time;
+	public String getOutTime() {
+		return outTime;
 	}
-	public void setOut_Time(String out_Time) {
-		this.out_Time = out_Time;
+	public void setOutTime(String outTime) {
+		this.outTime = outTime;
 	}
 	public String getDate() {
 		return date;
@@ -50,11 +51,11 @@ public class AttendanceDetails {
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
-	public String getType_Id() {
-		return type_Id;
+	public String getTypeId() {
+		return typeId;
 	}
-	public void setType_Id(String type_Id) {
-		this.type_Id = type_Id;
+	public void setTypeId(String typeId) {
+		this.typeId = typeId;
 	}
 	public String getStatus() {
 		return status;
@@ -70,5 +71,10 @@ public class AttendanceDetails {
 	{
 		return employee;
 	}
-
+	@Override
+	public String toString() {
+		return "AttendanceDetails [attendanceId=" + attendanceId + ", inTime=" + inTime + ", outTime=" + outTime
+				+ ", date=" + date + ", reason=" + reason + ", typeId=" + typeId + ", status=" + status + ", employee="
+				+ employee + "]";
+	}
 }

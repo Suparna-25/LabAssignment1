@@ -3,6 +3,7 @@ package com.cg.tca_attendance.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cg.tca_attendance.entities.AttendanceDetails;
 import com.cg.tca_attendance.entities.Employees;
 import com.cg.tca_attendance.repository.EmployeeRepository;
 
@@ -13,8 +14,8 @@ public class EmployeeService implements IEmployeeService{
 	}
 
 	@Override
-	public Employees viewEmployeeById(long emp_Id) {
-	 Employees emp=rep.findEmployeeById(emp_Id);
+	public Employees viewEmployeeById(long empId) {
+	 Employees emp=rep.findEmployeeById(empId);
 		return emp;
 	}
 
@@ -25,14 +26,14 @@ public class EmployeeService implements IEmployeeService{
 	}
 
 	@Override
-	public boolean validateEmployeeById(long emp_Id) {
-		if(emp_Id>0)
+	public boolean validateEmployeeById(long empId) {
+		if(empId>0)
 		{
 			return true;
 		}
 		return false;
 	}
-
+	
 	@Override
 	public List<Employees> viewEmployeesUnderSupervisior(long supervisiorId) {
 		List<Employees> emp=rep.findEmployeesUnderSupervisior(supervisiorId);
@@ -40,16 +41,31 @@ public class EmployeeService implements IEmployeeService{
 	}
 
 	@Override
-	public boolean validateSupervisior(long Supervisior_id) {
+	public boolean validateSupervisior(long supervisiorId) {
 		List<Employees> emp=new ArrayList<>();
 		for(Employees e:emp)
 		{
-			if(e.getEmp_Id()==Supervisior_id)
+			if(e.getEmpId()!=e.getSupervisiorId())
 			{
+			  if(e.getEmpId()==supervisiorId)
+			   {
 				return true;
+			   }
 			}
+			  else
+			  {
+				  return false;
+			  }
 		}
 		return false;
+	}
+
+	@Override
+	public List<AttendanceDetails> viewAttendanceByEmpId(long empId) {
+		Employees emp=viewEmployeeById(empId);
+		List<AttendanceDetails> attendance=emp.getAttendance();
+		
+		return attendance;
 	}
 	
 }

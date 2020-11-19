@@ -13,44 +13,45 @@ import javax.persistence.OneToMany;
 @Entity
 public class Employees {
 	@Id
-	private long emp_Id;
-	private String emp_Name;
-	private String phone_Number;
-	private String emp_Email;
-	private String emp_Location;
-	private long supervisior_Id;
+	
+	private long empId;
+	private String empName;
+	private String phoneNumber;
+	private String empEmail;
+	private String empLocation;
+	private long supervisiorId;
 	@OneToMany(mappedBy="employee")
 	private List<AttendanceDetails> attendance=new ArrayList<>();
 	
-	public long getEmp_Id() {
-		return emp_Id;
+	public long getEmpId() {
+		return empId;
 	}
-	public void setEmp_Id(Long emp_Id) {
-		this.emp_Id = emp_Id;
+	public void setEmpId(Long empId) {
+		this.empId = empId;
 	}
-	public String getEmp_Name() {
-		return emp_Name;
+	public String getEmpName() {
+		return empName;
 	}
-	public void setEmp_Name(String emp_Name) {
-		this.emp_Name = emp_Name;
+	public void setEmpName(String emp_Name) {
+		this.empName = emp_Name;
 	}
-	public String getPhone_Number() {
-		return phone_Number;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
-	public void setPhone_Number(String phone_Number) {
-		this.phone_Number = phone_Number;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
-	public String getEmp_Email() {
-		return emp_Email;
+	public String getEmpEmail() {
+		return empEmail;
 	}
-	public void setEmp_Email(String emp_Email) {
-		this.emp_Email = emp_Email;
+	public void setEmpEmail(String empEmail) {
+		this.empEmail = empEmail;
 	}
-	public String getEmp_Location() {
-		return emp_Location;
+	public String getEmpLocation() {
+		return empLocation;
 	}
-	public void setEmp_Location(String emp_Location) {
-		this.emp_Location = emp_Location;
+	public void setEmpLocation(String empLocation) {
+		this.empLocation = empLocation;
 	}
 	public List<AttendanceDetails> getAttendance() {
 		return attendance;
@@ -58,12 +59,18 @@ public class Employees {
 	public void setAttendance(List<AttendanceDetails> attendance) {
 		this.attendance = attendance;
 	}
-	public long getSupervisior_Id() {
-		return supervisior_Id;
+	public long getSupervisiorId() {
+		return supervisiorId;
 	}
-	public void setSupervisior_Id(long supervisior_Id) {
-		this.supervisior_Id = supervisior_Id;
+	public void setSupervisiorId(long supervisiorId) {
+		this.supervisiorId = supervisiorId;
 	}
+//	@Override
+//	public String toString() {
+//		return "Employees [empId=" + empId + ", empName=" + empName + ", phoneNumber=" + phoneNumber + ", empEmail="
+//				+ empEmail + ", empLocation=" + empLocation + ", supervisiorId=" + supervisiorId + ", attendance="
+//				+ attendance + "]";
+//	}
 	
 	
 }
