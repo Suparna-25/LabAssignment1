@@ -1,11 +1,6 @@
 package com.cg.tca_attendance.services;
 import com.cg.tca_attendance.repository.AttendanceDetailsRepository;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import com.cg.tca_attendance.entities.AttendanceDetails;
-import com.cg.tca_attendance.entities.Employees;
 
 public class AttendanceDetailsService implements IAttendanceDetailsService{
 	private AttendanceDetailsRepository rep;

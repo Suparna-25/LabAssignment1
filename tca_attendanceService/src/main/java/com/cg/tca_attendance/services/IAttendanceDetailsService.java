@@ -1,14 +1,29 @@
 package com.cg.tca_attendance.services;
 
-import java.util.List;
-
 import com.cg.tca_attendance.entities.AttendanceDetails;
-import com.cg.tca_attendance.entities.Employees;
+/**
+ * This Interface holds the structure for AttendanceDetailsService class
+ * @author Suparna Arya
+ *
+ */
 
 public interface IAttendanceDetailsService {
+	/**
+	 * This method is used to add attendance details
+	 * @param attendance
+	 */
 	public void addAttendanceDetails(AttendanceDetails attendance);
-	public  void updateAttendanceStatus(AttendanceDetails attendance,String status);
-	//public List<AttendanceDetails> viewAttendanceDetailsByEmployeeId(Employees employee);
-	public void setAttendanceType(int choice,AttendanceDetails attendance);
-	
+    /**
+     * This method is used to update AttendanceDetails status from pending to approve/reject
+     * @param attendance
+     * @param status
+     */
+	public void updateAttendanceStatus(AttendanceDetails attendance, String status);
+	/**
+	 * This method is used to set the attendanceType according to the user's choice
+	 * @param choice
+	 * @param attendance
+	 */
+	public void setAttendanceType(int choice, AttendanceDetails attendance);
+
 }
